@@ -1,5 +1,6 @@
 import Banner from "../Components/Banner";
 import Category from "../Components/Category";
+import PopularMenu from "../Components/PopularMenu";
 
 const Home = () => {
   return (
@@ -18,6 +19,9 @@ const Home = () => {
           </p>
         </div>
       </div>
+
+      {/* Popular menu */}
+      <PopularMenu></PopularMenu>
     </div>
   );
 };
