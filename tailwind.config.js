@@ -7,6 +7,7 @@ export default {
     extend: {
       backgroundImage: {
         homeBg: "url('./src/assets/home/chef-service.jpg')",
+        featuredBg: "url('./src/assets/home/featured.jpg')",
       },
     },
   },
