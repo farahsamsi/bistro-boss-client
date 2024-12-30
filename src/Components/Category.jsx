@@ -33,10 +33,12 @@ const Category = () => {
         className="mySwiper mb-24"
       >
         <SwiperSlide>
-          <img src={slide1} alt="" />
-          <h3 className=" md:text-3xl uppercase text-center -mt-6 md:-mt-12 text-white">
-            Salads
-          </h3>
+          <div className="pb-10 md:pb-16">
+            <img src={slide1} alt="" />
+            <h3 className=" md:text-3xl uppercase text-center -mt-6 md:-mt-12 text-white">
+              Salads
+            </h3>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
           <img src={slide2} alt="" />
