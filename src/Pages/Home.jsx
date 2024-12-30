@@ -2,6 +2,7 @@ import Banner from "../Components/Banner";
 import Category from "../Components/Category";
 import Featured from "../Components/Featured";
 import PopularMenu from "../Components/PopularMenu";
+import Testimonials from "../Components/Testimonials";
 
 const Home = () => {
   return (
@@ -25,6 +26,7 @@ const Home = () => {
       <PopularMenu></PopularMenu>
 
       <Featured></Featured>
+      <Testimonials></Testimonials>
     </div>
   );
 };
