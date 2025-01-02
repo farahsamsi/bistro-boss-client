@@ -8,6 +8,10 @@ export default {
       backgroundImage: {
         homeBg: "url('./src/assets/home/chef-service.jpg')",
         featuredBg: "url('./src/assets/home/featured.jpg')",
+        authBg: "url('./src/assets/others/authentication.png')",
+      },
+      colors: {
+        primary: "#D1A054",
       },
     },
   },
