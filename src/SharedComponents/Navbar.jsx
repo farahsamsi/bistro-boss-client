@@ -1,6 +1,34 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Sign Out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout()
+          .then(() => {
+            Swal.fire({
+              title: "Signed Out!",
+              text: "You have been signed out.",
+              icon: "success",
+            });
+            console.log("log out successful");
+          })
+          .catch((err) => console.log(err.message));
+      }
+    });
+  };
   const navOptions = (
     <>
       <li>
@@ -12,9 +40,22 @@ const Navbar = () => {
       <li>
         <NavLink to="/order/salad">Order Food</NavLink>
       </li>
-      <li>
-        <NavLink to="/login">Login</NavLink>
-      </li>
+
+      {user ? (
+        <>
+          <li>
+            <button onClick={handleLogout} className="btn btn-ghost">
+              Logout
+            </button>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink to="/login">Login</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -50,11 +91,11 @@ const Navbar = () => {
         </div>
         <a className="btn btn-ghost text-xl text-white">Bistro Boss</a>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navOptions}</ul>
+      <div className="navbar-center hidden lg:flex ">
+        <ul className="menu menu-horizontal px-1 items-center">{navOptions}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <button className="btn text-black">{user?.displayName}</button>
       </div>
     </div>
   );
