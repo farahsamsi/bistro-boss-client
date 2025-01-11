@@ -47,8 +47,8 @@ const SignUp = () => {
       <Helmet>
         <title>Sign Up | Bistro Boss</title>
       </Helmet>
-      <div className="hero bg-base-200">
-        <div className="hero-content grid grid-cols-1 lg:grid-cols-2 md:w-10/12 mx-auto">
+      <div className="hero  bg-authBg bg-no-repeat bg-center bg-cover">
+        <div className="hero-content grid grid-cols-1 lg:grid-cols-2 md:w-10/12 shadow-2xl my-10 md:my-24 mx-auto">
           <div className="text-center lg:text-left">
             <Link to="/">
               <button className="btn btn-ghost ">Home</button>

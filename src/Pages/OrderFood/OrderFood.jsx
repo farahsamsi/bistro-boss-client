@@ -15,7 +15,6 @@ const OrderFood = () => {
   const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
 
   const initialIndex = categories.indexOf(category);
-  console.log(initialIndex);
 
   const [tabIndex, setTabIndex] = useState(initialIndex);
   const [menu] = useMenu();

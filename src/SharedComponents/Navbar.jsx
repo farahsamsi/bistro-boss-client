@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import { IoCart } from "react-icons/io5";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -39,6 +40,14 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to="/order/salad">Order Food</NavLink>
+      </li>
+      <li>
+        <Link to="/">
+          <button className="flex items-center gap-2">
+            <IoCart className="text-2xl text-white" />
+            <div className="badge">+99</div>
+          </button>
+        </Link>
       </li>
 
       {user ? (
@@ -95,7 +104,22 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 items-center">{navOptions}</ul>
       </div>
       <div className="navbar-end">
-        <button className="btn text-black">{user?.displayName}</button>
+        {user ? (
+          <div className="flex items-center">
+            <button className="btn text-black">GET STARTED</button>
+            <div className="avatar ml-3">
+              <div className="w-14 rounded-full ">
+                <img src={user?.photoURL} />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <Link to="/login">
+              <button className="btn bg-primary border-none">Login</button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

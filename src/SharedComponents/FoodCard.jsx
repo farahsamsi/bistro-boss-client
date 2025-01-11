@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 
 const FoodCard = ({ item }) => {
+  const handleAddToCart = (food) => {
+    console.log(food);
+  };
   return (
     <div key={item._id} className="card bg-black/5">
       <figure className="relative">
@@ -13,7 +16,10 @@ const FoodCard = ({ item }) => {
         <h2 className="card-title">{item.name}</h2>
         <p>{item.recipe}</p>
         <div className="card-actions justify-end">
-          <button className="btn uppercase text-[#BB8506] border-b-2 border-b-[#BB8506]">
+          <button
+            onClick={() => handleAddToCart(item)}
+            className="btn uppercase text-[#BB8506] border-b-2 border-b-[#BB8506]"
+          >
             Add to cart
           </button>
         </div>
