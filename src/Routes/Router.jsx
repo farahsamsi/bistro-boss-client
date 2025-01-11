@@ -5,7 +5,8 @@ import Menu from "../Pages/Menu/Menu";
 import OrderFood from "../Pages/OrderFood/OrderFood";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
-import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../Layout/Dashboard";
+import Cart from "../Pages/Dashboard/Cart";
 
 const Router = createBrowserRouter([
   {
@@ -32,13 +33,15 @@ const Router = createBrowserRouter([
         path: "signUp",
         element: <SignUp></SignUp>,
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
       {
-        path: "secret",
-        element: (
-          <PrivateRoute>
-            <div>Secret Text</div>
-          </PrivateRoute>
-        ),
+        path: "cart",
+        element: <Cart></Cart>,
       },
     ],
   },

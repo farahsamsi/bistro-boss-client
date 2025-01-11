@@ -46,7 +46,7 @@ const Navbar = () => {
         <NavLink to="/order/salad">Order Food</NavLink>
       </li>
       <li>
-        <Link to="/">
+        <Link to="/dashboard/cart">
           <button className="flex items-center gap-2">
             <IoCart className="text-2xl text-white" />
             <div className="badge">+{cart?.length}</div>
