@@ -1,8 +1,54 @@
 import PropTypes from "prop-types";
+import useAuth from "../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const FoodCard = ({ item }) => {
+  const { name, image, price, _id } = item;
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const axiosSecure = useAxiosSecure();
+
   const handleAddToCart = (food) => {
-    console.log(food);
+    if (food && user && user.email) {
+      const cartItem = {
+        menuId: _id,
+        email: user.email,
+        name,
+        image,
+        price,
+      };
+
+      axiosSecure.post("/carts", cartItem).then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${name} has been added to your cart`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        title: "Please login first",
+        text: "To save food in your cart you must login first.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Go To Login",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // send the user to the login page
+          navigate("/login", { state: { from: location } });
+        }
+      });
+    }
   };
   return (
     <div key={item._id} className="card bg-black/5">

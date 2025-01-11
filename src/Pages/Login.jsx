@@ -24,6 +24,7 @@ const Login = () => {
   }, []);
 
   const from = location.state?.from?.pathname || "/";
+  console.log("from login page", from);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -3,9 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import { IoCart } from "react-icons/io5";
+import useCart from "../Hooks/useCart";
 
 const Navbar = () => {
+  const [cart] = useCart();
   const { user, logout } = useContext(AuthContext);
+
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -30,6 +33,7 @@ const Navbar = () => {
       }
     });
   };
+
   const navOptions = (
     <>
       <li>
@@ -45,7 +49,7 @@ const Navbar = () => {
         <Link to="/">
           <button className="flex items-center gap-2">
             <IoCart className="text-2xl text-white" />
-            <div className="badge">+99</div>
+            <div className="badge">+{cart?.length}</div>
           </button>
         </Link>
       </li>
