@@ -1,14 +1,19 @@
-import { FaTrashAlt } from "react-icons/fa";
-import useCart from "../../Hooks/useCart";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
-const Cart = () => {
-  const [cart, refetch] = useCart();
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
+  const { refetch, data: users = [] } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/users");
+      return res.data;
+    },
+  });
 
-  const handleDelete = (id) => {
+  const handleDeleteUser = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -16,15 +21,15 @@ const Cart = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, delete user!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/carts/${id}`).then((res) => {
+        axiosSecure.delete(`/users/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({
               title: "Deleted!",
-              text: "Your food has been deleted.",
+              text: "User has been deleted.",
               icon: "success",
             });
           }
@@ -33,13 +38,18 @@ const Cart = () => {
     });
   };
 
+  const handleMakeAdmin = (id) => {
+    //  /users/admin/
+    console.log(id);
+  };
+
   return (
     <div>
       <div className="flex justify-evenly mb-9">
-        <h2 className="text-4xl">Items: {cart?.length}</h2>
-        <h2 className="text-4xl">Total Price: {totalPrice}</h2>
-        <button className="btn btn-primary">Pay</button>
+        <h2 className="text-4xl">All Users</h2>
+        <h2 className="text-4xl">Total Users: {users.length}</h2>
       </div>
+
       <div>
         <div className="overflow-x-auto">
           <table className="table">
@@ -47,33 +57,32 @@ const Cart = () => {
             <thead>
               <tr className="bg-black/5">
                 <th>#</th>
-                <th>Image</th>
                 <th>Name</th>
-                <th>Price</th>
+                <th>Email</th>
+                <th>Role</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {cart.map((item, index) => (
-                <tr key={item._id}>
+              {users.map((user, index) => (
+                <tr key={user._id}>
                   <th>{index + 1}</th>
+                  <td>{user?.name}</td>
+                  <td>{user?.email}</td>
                   <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
-                          <img
-                            src={item?.image}
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    <button
+                      onClick={() => handleMakeAdmin(user._id)}
+                      className="btn bg-orange-400  btn-xs "
+                    >
+                      <FaUsers
+                        className="text-white hover:text-black text-xl tooltip"
+                        data-tip="hello"
+                      />
+                    </button>
                   </td>
-                  <td>{item?.name}</td>
-                  <td>${item?.price}</td>
                   <th>
                     <button
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDeleteUser(user._id)}
                       className="btn btn-ghost btn-xs "
                     >
                       <FaTrashAlt
@@ -92,4 +101,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default AllUsers;
