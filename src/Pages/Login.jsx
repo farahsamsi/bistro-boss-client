@@ -11,6 +11,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import loginImg from "../assets/others/authentication2.png";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import GoogleLogin from "../Components/SocialLogin/GoogleLogin";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -144,7 +145,8 @@ const Login = () => {
                 </div>
                 <div className="flex flex-col justify-center items-center">
                   <p>Or</p>
-                  <button
+                  <GoogleLogin></GoogleLogin>
+                  {/* <button
                     //   onClick={googleLoginBtn}
                     className="btn"
                   >
@@ -155,7 +157,7 @@ const Login = () => {
                       src="https://img.icons8.com/color/48/google-logo.png"
                       alt="google-logo"
                     />
-                  </button>
+                  </button> */}
                 </div>
 
                 {/* <button onClick={handleLogOut} className="btn">Log out</button> */}

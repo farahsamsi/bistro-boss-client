@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import GoogleLogin from "../Components/SocialLogin/GoogleLogin";
 
 const SignUp = () => {
   const axiosPublic = useAxiosPublic();
@@ -156,7 +157,8 @@ const SignUp = () => {
                 </div>
                 <div className="flex flex-col justify-center items-center">
                   <p>Or</p>
-                  <button
+                  <GoogleLogin></GoogleLogin>
+                  {/* <button
                     //   onClick={googleLoginBtn}
                     className="btn"
                   >
@@ -167,7 +169,7 @@ const SignUp = () => {
                       src="https://img.icons8.com/color/48/google-logo.png"
                       alt="google-logo"
                     />
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
