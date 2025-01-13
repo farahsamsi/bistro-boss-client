@@ -13,6 +13,38 @@ const AllUsers = () => {
     },
   });
 
+  const handleMakeAdmin = (user) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Make Admin!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(user._id);
+        axiosSecure
+          .patch(`/users/admin/${user._id}`)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.modifiedCount > 0) {
+              refetch();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${user.name} is an Admin Now!`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch((err) => console.log(err.message));
+      }
+    });
+  };
+
   const handleDeleteUser = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -36,11 +68,6 @@ const AllUsers = () => {
         });
       }
     });
-  };
-
-  const handleMakeAdmin = (id) => {
-    //  /users/admin/
-    console.log(id);
   };
 
   return (
@@ -70,15 +97,19 @@ const AllUsers = () => {
                   <td>{user?.name}</td>
                   <td>{user?.email}</td>
                   <td>
-                    <button
-                      onClick={() => handleMakeAdmin(user._id)}
-                      className="btn bg-orange-400  btn-xs "
-                    >
-                      <FaUsers
-                        className="text-white hover:text-black text-xl tooltip"
-                        data-tip="hello"
-                      />
-                    </button>
+                    {user.role === "admin" ? (
+                      "Admin"
+                    ) : (
+                      <button
+                        onClick={() => handleMakeAdmin(user)}
+                        className="btn bg-orange-400  btn-xs "
+                      >
+                        <FaUsers
+                          className="text-white hover:text-black text-xl tooltip"
+                          data-tip="hello"
+                        />
+                      </button>
+                    )}
                   </td>
                   <th>
                     <button
