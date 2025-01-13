@@ -3,7 +3,7 @@ import Loader from "../Components/Loader";
 import useAdmin from "../Hooks/useAdmin";
 import useAuth from "../Hooks/useAuth";
 
-const AdminRoute = (children) => {
+const AdminRoute = ({ children }) => {
   const [isAdmin, isAdminLoading] = useAdmin();
   const { user, loading } = useAuth();
 
