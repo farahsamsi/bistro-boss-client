@@ -25,7 +25,6 @@ const Login = () => {
   }, []);
 
   const from = location.state?.from?.pathname || "/";
-  console.log("from login page", from);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +32,6 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
     signIn(email, password)
       .then((result) => {
         const user = result.user;
