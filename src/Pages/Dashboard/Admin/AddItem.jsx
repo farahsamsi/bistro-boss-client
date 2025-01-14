@@ -1,15 +1,35 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../../SharedComponents/SectionTitle";
 import { FaUtensils } from "react-icons/fa6";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+
+// image hosting
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddItem = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const axiosPublic = useAxiosPublic();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    // image upload to imgbb and then get an url
+    const imageFile = { image: data.image[0] };
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+    if (res.data.success) {
+      // now send the menu item data to the server with the image
+    }
+    console.log(res.data);
+  };
   return (
     <div>
       <SectionTitle
         heading="Add an item"
-        subHeading="what's new"
+        subHeading="What's New"
       ></SectionTitle>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -34,9 +54,10 @@ const AddItem = () => {
               <select
                 {...register("category")}
                 required
+                defaultValue="default"
                 className="select select-bordered w-full"
               >
-                <option disabled selected>
+                <option disabled value="default">
                   Select a Category
                 </option>
                 <option value="salad">Salad</option>
