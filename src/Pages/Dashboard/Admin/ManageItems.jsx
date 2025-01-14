@@ -1,8 +1,9 @@
 import Swal from "sweetalert2";
-import useMenu from "../../Hooks/useMenu";
-import SectionTitle from "../../SharedComponents/SectionTitle";
+import useMenu from "../../../Hooks/useMenu";
+import SectionTitle from "../../../SharedComponents/SectionTitle";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const ManageItems = () => {
   const [menu, , refetch] = useMenu();
@@ -39,9 +40,6 @@ const ManageItems = () => {
   //   icon: "success",
   // });
 
-  const handleUpdate = (item) => {
-    console.log(item);
-  };
   return (
     <div>
       <SectionTitle
@@ -79,12 +77,11 @@ const ManageItems = () => {
                   <td>{item?.name}</td>
                   <td>{item?.price}</td>
                   <td>
-                    <button
-                      onClick={() => handleUpdate(item)}
-                      className="btn bg-orange-400  btn-xs "
-                    >
-                      <FaEdit className="text-white hover:text-black text-xl " />
-                    </button>
+                    <Link to={`/dashboard/updateItem/${item._id}`}>
+                      <button className="btn bg-orange-400  btn-xs ">
+                        <FaEdit className="text-white hover:text-black text-xl " />
+                      </button>
+                    </Link>
                   </td>
                   <td>
                     <button
