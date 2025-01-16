@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import SectionTitle from "../../../SharedComponents/SectionTitle";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
@@ -15,6 +15,7 @@ const UpdateItem = () => {
   const { register, handleSubmit, reset } = useForm();
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     // image upload to imgbb and then get an url
@@ -36,6 +37,7 @@ const UpdateItem = () => {
       const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem);
       if (menuRes.data.modifiedCount > 0) {
         reset();
+        navigate("/dashboard/manageItems");
         Swal.fire({
           position: "top-end",
           icon: "success",
