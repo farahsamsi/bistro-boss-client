@@ -4,10 +4,12 @@ import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import { IoCart } from "react-icons/io5";
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 const Navbar = () => {
   const [cart] = useCart();
   const { user, logout } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
 
   const handleLogout = () => {
     Swal.fire({
@@ -45,6 +47,18 @@ const Navbar = () => {
       <li>
         <NavLink to="/order/salad">Order Food</NavLink>
       </li>
+
+      {user && isAdmin && (
+        <li>
+          <NavLink to="/dashboard/adminHome">Dashboard</NavLink>
+        </li>
+      )}
+      {user && !isAdmin && (
+        <li>
+          <NavLink to="/dashboard/userHome">Dashboard</NavLink>
+        </li>
+      )}
+
       <li>
         <Link to="/dashboard/cart">
           <button className="flex items-center gap-2">

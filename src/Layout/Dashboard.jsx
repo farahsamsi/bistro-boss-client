@@ -30,7 +30,7 @@ const Dashboard = () => {
               {" "}
               {/* for is admin true */}
               <li>
-                <NavLink to="/dashboard/userHome">
+                <NavLink to="/dashboard/adminHome">
                   <FaHome />
                   Admin Home
                 </NavLink>

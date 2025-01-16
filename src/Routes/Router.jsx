@@ -15,6 +15,8 @@ import ManageItems from "../Pages/Dashboard/Admin/ManageItems";
 import UpdateItem from "../Pages/Dashboard/Admin/UpdateItem";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory";
+import AdminHome from "../Pages/Dashboard/Admin/AdminHome";
+import UserHome from "../Pages/Dashboard/User/UserHome";
 
 const Router = createBrowserRouter([
   {
@@ -52,6 +54,10 @@ const Router = createBrowserRouter([
     ),
     children: [
       {
+        path: "userHome",
+        element: <UserHome></UserHome>,
+      },
+      {
         path: "cart",
         element: <Cart></Cart>,
       },
@@ -65,6 +71,14 @@ const Router = createBrowserRouter([
       },
 
       // admin routes
+      {
+        path: "adminHome",
+        element: (
+          <AdminRoute>
+            <AdminHome></AdminHome>
+          </AdminRoute>
+        ),
+      },
       {
         path: "addItem",
         element: (
@@ -97,7 +111,9 @@ const Router = createBrowserRouter([
           </AdminRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/menu/${params.id}`),
+          fetch(
+            `https://bistro-boss-server-indol-three.vercel.app/menu/${params.id}`
+          ),
       },
     ],
   },
